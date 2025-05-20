@@ -23,6 +23,8 @@ components:
       properties:
         _id:
           type: string
+        webflow_id:
+          type: string
         name:
           type: string
         city:
@@ -75,6 +77,7 @@ components:
                     nullable: true
       example:
         _id: 67b474b2847affd92f166c62
+        webflow_id: '1934b2f3c8d9a0e1f5e6b7a8'
         name: '[Happy Paint] Apéro peinture et plaisir dans le 9ème'
         city: Paris
         postal_code: '75009'
