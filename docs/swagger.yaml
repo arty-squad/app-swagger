@@ -323,8 +323,6 @@ paths:
       summary: 'Get all activities'
       tags:
       - 'Activity'
-      security:
-      - BearerAuth: []
       parameters:
       - $ref: '#/components/parameters/TestModeParameter'
       responses:
