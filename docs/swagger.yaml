@@ -318,11 +318,33 @@ paths:
                   message: "Email is required"
 
 
+  /activity:
+    get:
+      summary: 'Get all activities'
+      tags:
+      - 'Activity'
+      security:
+      - BearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/TestModeParameter'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activities:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Activity'
+
   /activity/{webflow_id}/sessions:
     get:
       summary: 'Get the calendar for an activity'
       tags:
-      - 'Calendar'
+      - 'Activity'
       parameters:
       - $ref: '#/components/parameters/TestModeParameter'
       - $ref: '#/components/parameters/WebflowIdPathParam'
