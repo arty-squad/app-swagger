@@ -1,0 +1,357 @@
+openapi: 3.0.0
+info:
+  title: Artysquad App API
+  version: 1.0.0
+  description: Swagger documentation for Artysquad App API
+servers:
+- url: https://ii6284.buildship.run/app
+  description: Buildship Backend Server
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        Firebase Authentication (JWT). 
+        Include your Firebase ID token in the `Authorization` header as: 
+        `Bearer <Firebase ID Token>`. 
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+        email:
+          type: string
+        uid:
+          type: string
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        role:
+          type: string
+          enum: ["admin", "partner", "company", "user"]
+      example:
+        _id: 67d2bc99f0a0730d916a3fca
+        email: test@artysquad.com
+        uid: E0oVVP9aXqNpMwBeKThAkZXuuI33
+        name: test
+        createdAt: '2025-03-10T00:00:00Z'
+        role: admin
+
+    Activity:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        city:
+          type: string
+        postal_code:
+          type: string
+        price_per_person:
+          type: string
+        sessions_calendar:
+          type: object
+          properties:
+            yyyy-mm-dd:
+              type: array
+              items:
+                type: object
+                properties:
+                  dateStr:
+                    type: string
+                    format: date
+                  dateJS:
+                    type: string
+                    format: date-time
+                  start:
+                    type: string
+                    format: HH:MM
+                  end:
+                    type: string
+                    format: HH:MM
+                  session_datetime:
+                    type: string
+                    format: date-time
+                  bookingIds:
+                    type: array
+                    items:
+                      type: string
+                    nullable: true
+                  recurring:
+                    type: boolean
+                  recurring_first_date:
+                    type: string
+                    format: date
+                    nullable: true
+                  recurring_period:
+                    type: string
+                    enum: [week, month, day]
+                    nullable: true
+                  recurring_quantity:
+                    type: integer
+                    minimum: 2
+                    maximum: 15
+                    nullable: true
+      example:
+        _id: 67b474b2847affd92f166c62
+        name: '[Happy Paint] Apéro peinture et plaisir dans le 9ème'
+        city: Paris
+        postal_code: '75009'
+        price_per_person: '39'
+        sessions_calendar:
+          '2025-02-01':
+            - dateStr: '2025-02-01'
+              start: '17:00'
+              end: '20:00'
+              session_datetime: '2025-02-01T17:00:00.000Z'
+              bookingIds: []
+              recurring: false
+          '2025-02-15':
+            - dateStr: '2025-02-15'
+              start: '17:00'
+              end: '20:00'
+              session_datetime: '2025-02-15T17:00:00.000Z'
+              recurring: false
+              bookingIds: ["67d2bfef8538cd94cfef73da"]
+          '2025-03-15':
+            - dateStr: '2025-03-15'
+              start: '17:00'
+              end: '20:00'
+              session_datetime: '2025-03-15T17:00:00.000Z'
+              recurring: false
+              bookingIds: []
+
+    Calendar:
+      type: object
+      properties:
+        yyyy-mm-dd:
+          type: array
+          items:
+            type: object
+            properties:
+              dateStr:
+                type: string
+                format: date
+              dateJS:
+                type: string
+                format: date-time
+              start:
+                type: string
+                format: HH:MM
+              end:
+                type: string
+                format: HH:MM
+              session_datetime:
+                type: string
+                format: date-time
+              bookingIds:
+                type: array
+                items:
+                  type: string
+                nullable: true
+              recurring:
+                type: boolean
+              recurring_first_date:
+                type: string
+                format: date
+                nullable: true
+              recurring_period:
+                type: string
+                enum: [week, month, day]
+                nullable: true
+              recurring_quantity:
+                type: integer
+                minimum: 2
+                maximum: 15
+                nullable: true
+      example:
+        '2025-02-01':
+          - dateStr: '2025-02-01'
+            start: '17:00'
+            end: '20:00'
+            session_datetime: '2025-02-01T17:00:00.000Z'
+            bookingIds: []
+            recurring: false
+        '2025-02-15':
+          - dateStr: '2025-02-15'
+            start: '17:00'
+            end: '20:00'
+            session_datetime: '2025-02-15T17:00:00.000Z'
+            recurring: false
+            bookingIds: ["67d2bfef8538cd94cfef73da"]
+        '2025-03-15':
+          - dateStr: '2025-03-15'
+            start: '17:00'
+            end: '20:00'
+            session_datetime: '2025-03-15T17:00:00.000Z'
+            recurring: false
+            bookingIds: []
+
+    Session:
+      type: object
+      properties:
+        _id:
+          type: string
+        dateStr:
+          type: string
+          format: date
+        dateJS:
+          type: string
+          format: date-time
+        start:
+          type: string
+          format: HH:MM
+        end:
+          type: string
+          format: HH:MM
+        session_datetime:
+          type: string
+          format: date-time
+        bookingIds:
+          type: array
+          items:
+            type: string
+        recurring:
+          type: boolean
+        recurring_first_date:
+          type: string
+          format: date
+        recurring_period:
+          type: string
+          enum: [week, month, day]
+        recurring_quantity:
+          type: integer
+          minimum: 2
+          maximum: 15
+      example:
+        _id: "67d2bfef8538cd94cfef73da"
+        dateStr: "2025-03-15"
+        dateJS: "2025-03-15T00:00:00.000Z"
+        start: "17:00"
+        end: "20:00"
+        session_datetime: "2025-03-15T17:00:00.000Z"
+        bookingIds:
+          - "67d2bfef8538cd94cfef73du"
+          - "67d2bfef8538cd94cfef73dv"
+        recurring: false
+        recurring_first_date: null
+        recurring_period: null
+        recurring_quantity: null
+
+  parameters:
+    TestModeHeader:
+      name: testmode
+      in: header
+      required: false
+      description: Set to `true` to enable test mode.
+      schema:
+        type: boolean
+        default: false
+    TestModeParameter:
+      name: test
+      in: query
+      required: false
+      description: If parameter exists (even with no value), test mode is enabled.
+      schema:
+        type: string
+        default: "null"
+    FirebaseUIDQueryParam:
+      name: firebase_uid
+      in: path
+      required: true
+      description: 'Firebase UID of the user'
+      schema:
+        type: string
+    MongoIDQueryParam:
+      name: id
+      in: path
+      required: true
+      description: 'Object ID in MongoDB'
+      schema:
+        type: string
+
+security: &secAdmin
+- BearerAuthAdmin: []
+
+paths:
+  /check_email:
+    post:
+      summary: 'Checks if email has the domain of a customer company'
+      tags:
+      - 'Auth'
+      security: []
+      description: |
+        This endpoint is used to verify the email domain.
+        If it's a valid email, the user can activate their account.
+      parameters:
+      - $ref: '#/components/parameters/TestModeParameter'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+              example:
+                email: "test@artysquad.com"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  company_id:
+                    type: string
+                  company_name:
+                    type: string
+                example:
+                  success: true
+                  message: "Email is valid"
+                  company_id: "67d2bfef8538cd94cfef73da"
+                  company_name: "Arty Squad"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                example:
+                  error: "Bad Request"
+                  message: "Email is required"
+
+
+  /activity/{id}/sessions:
+    get:
+      summary: 'Get sessions for an activity (role: admin || partner)'
+      tags:
+      - 'Calendar'
+      parameters:
+      - $ref: '#/components/parameters/TestModeParameter'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Calendar'
