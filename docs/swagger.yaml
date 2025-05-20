@@ -17,30 +17,6 @@ components:
         Include your Firebase ID token in the `Authorization` header as: 
         `Bearer <Firebase ID Token>`. 
   schemas:
-    User:
-      type: object
-      properties:
-        _id:
-          type: string
-        email:
-          type: string
-        uid:
-          type: string
-        name:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        role:
-          type: string
-          enum: ["admin", "partner", "company", "user"]
-      example:
-        _id: 67d2bc99f0a0730d916a3fca
-        email: test@artysquad.com
-        uid: E0oVVP9aXqNpMwBeKThAkZXuuI33
-        name: test
-        createdAt: '2025-03-10T00:00:00Z'
-        role: admin
 
     Activity:
       type: object
