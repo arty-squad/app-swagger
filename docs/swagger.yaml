@@ -321,7 +321,7 @@ paths:
                   message: "Email is required"
 
 
-  /activity:
+  /activities:
     get:
       summary: 'Get all activities'
       tags:
@@ -341,7 +341,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Activity'
 
-  /activity/{webflow_id}/sessions:
+  /activities/{webflow_id}/sessions:
     get:
       summary: 'Get the calendar for an activity'
       tags:
