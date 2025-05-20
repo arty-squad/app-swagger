@@ -248,11 +248,11 @@ components:
       description: 'Firebase UID of the user'
       schema:
         type: string
-    MongoIDQueryParam:
-      name: id
+    WebflowIdPathParam:
+      name: webflow_id
       in: path
       required: true
-      description: 'Object ID in MongoDB'
+      description: 'Webflow Id of the activity'
       schema:
         type: string
 
@@ -321,17 +321,25 @@ paths:
                   message: "Email is required"
 
 
-  /activity/{id}/sessions:
+  /activity/{webflow_id}/sessions:
     get:
-      summary: 'Get sessions for an activity (role: admin || partner)'
+      summary: 'Get the calendar for an activity'
       tags:
       - 'Calendar'
       parameters:
       - $ref: '#/components/parameters/TestModeParameter'
+      - $ref: '#/components/parameters/WebflowIdPathParam'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Calendar'
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  calendar:
+                    $ref: '#/components/schemas/Calendar'
